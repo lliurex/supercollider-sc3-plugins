@@ -1,0 +1,27 @@
+Description: Install ladspalist in /usr/bin
+ It used to be installed in the plugin directory, place it in user
+ path instead.  See also discussion on
+ <URL: https://github.com/deb-pkg-sonic-pi/pkg-supercollider-sc3-plugins/issues/5 >.
+Forwarded: no
+Author: Hanno Zulla <kontakt@hanno.de>
+Last-Update: 2015-12-11
+
+Index: supercollider-sc3-plugins/source/CMakeLists.txt
+===================================================================
+--- supercollider-sc3-plugins.orig/source/CMakeLists.txt
++++ supercollider-sc3-plugins/source/CMakeLists.txt
+@@ -150,12 +150,12 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux|.*B
+     set(INSTALL_DESTINATION "lib/SuperCollider/plugins")
+     if (QUARKS)
+         set(INSTALL_DESTINATION_LADSPALIST
+-                "share/SuperCollider/SC3plugins/LadspaUGen")
++                "bin")
+         set(INSTALL_DESTINATION_DISTRO
+                 "share/SuperCollider/SC3plugins")
+     else()
+         set(INSTALL_DESTINATION_LADSPALIST
+-                "share/SuperCollider/Extensions/SC3plugins/LadspaUGen")
++                "bin")
+         set(INSTALL_DESTINATION_DISTRO
+                 "share/SuperCollider/Extensions/SC3plugins")
+     endif(QUARKS)

@@ -1,0 +1,4 @@
+# Upstream doesn't provide a changelog file
+sc3-plugins-server: no-upstream-changelog
+# False positive, plugin is built with correct hardening flags
+sc3-plugins-server: hardening-no-fortify-functions

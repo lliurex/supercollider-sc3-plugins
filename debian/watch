@@ -1,0 +1,5 @@
+version=3
+# Convert -alpha to ~alpha, and drop the +git part from the Debian
+# version before comparing, as we use git snapshots 2015-12-15.
+opts=uversionmangle=s/-(alpha|beta)/~\\1/,dversionmangle=s/~repack\d*$//,filenamemangle=s/.+\/Version-(\d\S*)\.tar\.gz/supercollider-sc3-plugins-$1\.tar\.gz/ \
+  https://github.com/supercollider/sc3-plugins/tags .*/Version-?(\d\.\d.\d\S*)\.tar\.gz

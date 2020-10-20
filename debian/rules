@@ -1,0 +1,61 @@
+#!/usr/bin/make -f
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+include /usr/share/dpkg/buildflags.mk
+
+ifeq ("$(DEB_HOST_ARCH_CPU)","ppc64el")
+	CFLAGS=-mno-altivec -mno-vsx
+	CXXFLAGS=-mno-altivec -mno-vsx
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+	-DSYSTEM_STK=on \
+	-DSC_PATH=/usr/include/SuperCollider \
+	-DCMAKE_INSTALL_PREFIX=/usr \
+	-DCMAKE_BUILD_TYPE=Release
+
+# Remove unwanted license file installed by default.  Easier to do it
+# here than to rewrite the 'install every file in all sc/ directories'
+# rule in source/CMakeLists.txt.
+DESTDIR = debian/tmp
+override_dh_auto_install:
+	dh_auto_install
+	$(RM) $(DESTDIR)/usr/share/SuperCollider/Extensions/SC3plugins/ATK/LICENSE
+
+# Upstream commit ID for the version we want to import.
+COMMIT=41a6d721b2890b77b67ad222a77074bf2ba8454b
+get-orig-source:
+	TMPDIR=`mktemp -d` && \
+		NAME="supercollider-sc3-plugins" && \
+		REPO="$$TMPDIR/$$NAME" && \
+		git clone https://github.com/supercollider/sc3-plugins $$REPO && \
+		UPSTREAM_TAG=`git --git-dir="$$REPO/.git" describe --tags --abbrev=0 $(COMMIT)` && \
+		UPSTREAM_VER=`echo $$UPSTREAM_TAG | sed -e 's/^Version-//' -e 's/-/~/'` && \
+		CTAG=`git --git-dir="$$REPO/.git" rev-list -1 $$UPSTREAM_TAG` && \
+		SOURCE_VER=$$UPSTREAM_VER && \
+		if [ "$$CTAG" != "$(COMMIT)" ]; then \
+			CDATE=`git --git-dir="$$REPO/.git" show --format=format:%ci -s $(COMMIT) | awk '{ gsub(/-/,""); print $$1 }'` ; \
+			CSHORT=`git --git-dir="$$REPO/.git" show --format=format:%h -s $(COMMIT)` ; \
+			SOURCE_VER=$$SOURCE_VER+git$$CDATE.$$CSHORT ; \
+		fi && \
+		SOURCE_VER=$$SOURCE_VER~repack && \
+		TXZ=$$NAME\_$$SOURCE_VER.orig.tar.xz; \
+		( \
+			cd $$REPO && \
+			git checkout $(COMMIT) && \
+			git submodule init && \
+			git submodule update external_libraries/nova-simd && \
+			rm -rf submodule external_libraries/stk && \
+			cd .. && \
+			tar cfvJ $$REPO.tar.xz $$NAME --exclude=".*" \
+		) && \
+		mv $$REPO.tar.xz ../$$TXZ && \
+		rm -rf $$TMPDIR && \
+		echo; echo 'The next step is to import the source into git.'; echo; \
+		printf "  gbp import-orig --pristine-tar \\\\\\n    --upstream-version="$$SOURCE_VER" \\\\\\n    ../$$TXZ\n"

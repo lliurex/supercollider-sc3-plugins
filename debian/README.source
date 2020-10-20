@@ -1,0 +1,33 @@
+Hello, fellow Debian packager!
+
+The SC3 UGen Plugin collection is a repository of user-contributed
+extensions to the SuperCollider audio synthesis server.
+
+It is distributed through <https://github.com/supercollider/sc3-plugins>
+and maintained by the SuperCollider team.
+
+The upstream repo contains git submodules referring to two libraries,
+STK and nova-simd.
+
+For Debian, upstream has added a configure setting that allows 
+compiling the sc3 plugins against Debian's own STK library, making the 
+embedded code copy obsolete. STK has since been removed for the
+repacked Debian source package.
+
+The ATK UGen plugin is based on the Ambisonic Toolkit (ATK) and
+./source/ATK/sc/README refers to the copyright of the original ATK
+library and the ATK filters that come with it. These filters are not
+shipped with the SC3 UGen Plugin collection and thus the filters'
+copyright does not apply to the Debian source package.
+
+<https://github.com/supercollider/sc3-plugins/issues/61>
+
+The author of the nova-simd library has requested to not have his
+library distributed as a separate Debian package, it is thus included
+as an embedded copy.
+
+<https://github.com/timblechmann/nova-simd/issues/5>
+
+Thank you.
+
+(written in February, 2016)

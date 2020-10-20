@@ -1,0 +1,73 @@
+Source: supercollider-sc3-plugins
+Section: sound
+Priority: optional
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>
+Uploaders:
+ Hanno Zulla <kontakt@hanno.de>,
+ Petter Reinholdtsen <pere@debian.org>,
+ Georges Khaznadar <georgesk@debian.org>
+Build-Depends:
+ debhelper (>= 10),
+ cmake,
+ libfftw3-dev,
+ libstk0-dev,
+ libjack-jackd2-dev,
+ supercollider-dev
+Standards-Version: 4.1.3
+Homepage: https://github.com/supercollider/sc3-plugins
+Vcs-Browser: https://salsa.debian.org/multimedia-team/supercollider-sc3-plugins
+Vcs-Git: https://salsa.debian.org/multimedia-team/supercollider-sc3-plugins.git
+
+Package: sc3-plugins
+Section: metapackages
+Architecture: all
+Depends:
+ sc3-plugins-server,
+ sc3-plugins-language,
+ ${misc:Depends}
+Suggests:
+ ladspalist
+Conflicts: supercollider-sc3-plugins
+Description: Community collection of UGen plugins for SuperCollider
+ Extension plugins for the SuperCollider3 audio synthesis server.
+ These third-party plugins provide additional synthesis, analysis,
+ and other capabilities for the sound server.
+
+Package: sc3-plugins-server
+Architecture: i386 amd64 arm64 armhf mipsel
+Depends:
+ supercollider-server,
+ ${shlibs:Depends},
+ ${misc:Depends}
+Suggests:
+ ladspalist
+Conflicts: supercollider-sc3-plugins-scsynth
+Description: Compiled scsynth UGen plugins for SuperCollider
+ Extension plugins for the SuperCollider3 audio synthesis server.
+ These plugin binaries are needed by scsynth when using the community
+ collection of UGen plugins for SuperCollider.
+
+Package: sc3-plugins-language
+Architecture: all
+Depends:
+ supercollider-language,
+ sc3-plugins-server (>= ${source:Version}),
+ sc3-plugins-server (<< ${source:Upstream-Version}+1~),
+ ${misc:Depends}
+Conflicts: supercollider-sc3-plugins-sclang
+Description: sclang class files of UGen plugins for SuperCollider
+ Extension plugins for the SuperCollider3 audio synthesis server.
+ These SuperCollider class files are needed by sclang when using
+ the community collection of UGen plugins for SuperCollider.
+
+Package: ladspalist
+Architecture: i386 amd64 arm64 armhf mipsel
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Conflicts: supercollider-sc3-plugins-ladspalist
+Description: List LADSPA plugins for use by LADSPA UGen
+ Optional helper tool to list the features of LADSPA plugins
+ installed on the system for later use by the LADSPA UGen plugin
+ for SuperCollider.

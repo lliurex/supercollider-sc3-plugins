@@ -1,0 +1,130 @@
+supercollider-sc3-plugins (3.9.1~repack-3build1+lliurex) bionic; urgency=medium
+
+  * Initial bionic backport.
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Tue, 20 Oct 2020 14:41:16 +0200
+
+supercollider-sc3-plugins (3.9.1~repack-3build1) focal; urgency=medium
+
+  * No change rebuild against new stk-4.6.1 ABI
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Mon, 10 Feb 2020 18:45:01 +0000
+
+supercollider-sc3-plugins (3.9.1~repack-3) unstable; urgency=medium
+
+  * changed Architecture: any to
+    Architecture: i386 amd64 arm64 armhf mipsel to comply with architectures
+    supported by the build-dependency supercollider-dev
+
+ -- Georges Khaznadar <georgesk@debian.org>  Sun, 03 Feb 2019 23:30:49 +0100
+
+supercollider-sc3-plugins (3.9.1~repack-2) unstable; urgency=medium
+
+  * modified d/watch, so the repacked package does not seem older than
+    the upstream version
+
+ -- Georges Khaznadar <georgesk@debian.org>  Wed, 28 Nov 2018 19:16:09 +0100
+
+supercollider-sc3-plugins (3.9.1~repack-1) unstable; urgency=medium
+  [Georges Khaznadar]
+  * upgraded to the newest upstream version
+  * updated the debian patches for this last version
+  * upgraded standards: Standards-Version: 4.1.3, debhelper (>= 10), compat.
+  * removed the option --parallel which is useless with debhelper (>= 10)
+    in debian/rules
+  [ Fernando Seiti Furusato ]
+  * debian/rules: disable altivec/vmx to fix FTBFS on ppc64el
+    (Closes: #826225)
+
+ -- Georges Khaznadar <georgesk@debian.org>  Tue, 10 Apr 2018 19:26:05 +0200
+
+supercollider-sc3-plugins (3.7.1~repack-2) unstable; urgency=medium
+
+  [ Hanno Zulla ]
+  * Fix GCC6 compilation issue (Closes: #831078)
+
+ -- Petter Reinholdtsen <pere@debian.org>  Fri, 02 Sep 2016 10:43:44 +0000
+
+supercollider-sc3-plugins (3.7.1~repack-1) unstable; urgency=medium
+
+  [ Hanno Zulla ]
+  * New upstream release 3.7.1.
+  * Debian: 03-sse-only-on-x86.patch was accepted upstream.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Tue, 19 Apr 2016 12:49:48 +0200
+
+supercollider-sc3-plugins (3.7.0~beta+git20151221.f978dc2~repack-7) unstable; urgency=medium
+
+  * Debian: set SSE flags only when compiler supports them (fixes
+    multi-arch builds)
+
+ -- Hanno Zulla <kontakt@hanno.de>  Thu, 25 Feb 2016 16:48:00 +0100
+
+supercollider-sc3-plugins (3.7.0~beta+git20151221.f978dc2~repack-6) unstable; urgency=medium
+
+  [ Hanno Zulla ]
+  * Debian: explain repacked source tarball structure in debian/README.source
+
+ -- Hanno Zulla <kontakt@hanno.de>  Fri, 19 Feb 2016 09:35:00 +0100
+
+supercollider-sc3-plugins (3.7.0~beta+git20151221.f978dc2~repack-5) unstable; urgency=medium
+
+  [ Hanno Zulla ]
+  * Debian: fixes for several lintian complaints
+  * Debian: fix and update copyright info
+  * Debian: fix get-orig-source rule to checkout the actual commit
+    from git repo.
+  * Debian: build with Jessie now possible
+    (thanks to fixed #805549, #810760)
+
+ -- Hanno Zulla <kontakt@hanno.de>  Mon, 15 Feb 2016 17:14:00 +0100
+
+supercollider-sc3-plugins (3.7.0~beta+git20151221.f978dc2~repack-4) unstable; urgency=medium
+
+  [ Hanno Zulla ]
+  * Debian: Add BSL-1.0 in debian/copyright.
+  * Debian: copyright notices for all plugins checked and updated.
+  * Debian: fix copyright file format.
+  * Debian: quote full BSD license, fixing
+    copyright-refers-to-deprecated-bsd-license-file.
+
+  [ Petter Reinholdtsen ]
+  * Rename BSD to BSD-3-clause in debian/copyright.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Mon, 11 Jan 2016 12:01:48 +0000
+
+supercollider-sc3-plugins (3.7.0~beta+git20151221.f978dc2~repack-3) unstable; urgency=low
+
+  * Rename binary packages to name structure used by supercollider.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Wed, 06 Jan 2016 23:20:49 +0100
+
+supercollider-sc3-plugins (3.7.0~beta+git20151221.f978dc2~repack-2) unstable; urgency=low
+
+  * Initial upload to Debian (Closes: #807364).
+
+  [ Hanno Zulla ]
+  * Move ladspalist to separate package.
+  * Add manual page ladspalist(1).
+
+  [ Petter Reinholdtsen ]
+  * Fix typo in package description.
+  * Build depend on libstk0-dev (>= 4.5.0-2) to make sure the SKINI.msg
+    file is available.
+  * Drop unneeded dependency from supercollider-sc3-plugins-ladspalist to
+    supercollider-sc3-plugins-scsynth.
+  * Only suggest supercollider-sc3-plugins-ladspalist, it is not improving
+    the function of the plugins.
+  * Drop or rewrite versioned depends to make sure binnmu is possible.
+  * Fix nroff typo in ladspalist(1).
+  * Rename packages to shorter alternatives to avoid two long package
+    names.  Conflict with the old names.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Wed, 06 Jan 2016 10:58:12 +0100
+
+supercollider-sc3-plugins (3.7.0~beta+git20151221.f978dc2~repack-1) unstable; urgency=low
+
+  * clean restart of git-buildpackage repository
+  * submission to Debian Multimedia for review
+
+ -- Hanno Zulla <kontakt@hanno.de>  Mon, 21 Dec 2015 14:28:00 +0100

@@ -1,0 +1,25 @@
+Description: Remove directory for locally installed plugin sources
+ Upstream allows developers to build locally installed plugin sources.
+ However, the Debian package only compiles those plugins that are part
+ of upstream's collection. This patch avoids having an empty directory
+ in the binary package. 
+Forwarded: no
+Author: Hanno Zulla <kontakt@hanno.de>
+Last-Update: 2016-02-16
+
+Index: supercollider-sc3-plugins/source/local/readme.txt
+===================================================================
+--- supercollider-sc3-plugins.orig/source/local/readme.txt	2016-04-19 09:57:10.065684481 +0200
++++ /dev/null	1970-01-01 00:00:00.000000000 +0000
+@@ -1,11 +0,0 @@
+-
+-This folder makes it easy to build simple SuperCollider plugins:
+-
+-**EVERY** .cpp file you place in this folder will be assumed to define a
+-SuperCollider plugin, and will be compiled as part of the sc3-plugins build
+-process. (You can softlink .cpp files in here if you like.)
+-
+-Note that this simple approach isn't suitable for all plugins - if you have
+-plugins which need auxiliary .h or .cpp files, or which use external lilbraries,
+-they probably need their own custom build commands.
+-
